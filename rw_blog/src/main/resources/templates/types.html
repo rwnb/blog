@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"><!--设置页面缩放-->
+    <title>分类页面</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+</head>
+<body>
+    <!--导航-->
+    <nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu">
+                <h2 class="ui teal header item">Blog</h2>
+                <a th:href="@{/}" class="item "><i class=" home icon"></i>首页</a>
+                <a th:href="@{/types/-1}" class="active item "><i class="idea icon"></i>分类</a>
+                <a th:href="@{/tag/-1}" class="item "><i class="tags icon"></i>标签</a>
+                <a th:href="@{/archives}" class="item "><i class="clone icon"></i>归档</a>
+                <a th:href="@{/about}" class="item "><i class="info icon"></i>关于我</a>
+                <div class="right item ">
+                    <div class="ui icon  input">
+                        <input type="text" placeholder="Search....">
+                        <i class="search link icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!--中间内容-->
+    <div class="m-container-small m-padded-tb-big">
+        <div class="ui container">
+            <div class="ui top attached segment">
+                <div class="ui middle aligned two column grid">
+                    <div class="column">
+                        <h3 class=" ui teal header">分类</h3>
+                    </div>
+                    <div class="right aligned column">
+                        共<h3 class=" ui orange header m-inline-block m-text-thin" th:text="${#arrays.length(types)}">14</h3>个
+                    </div>
+                </div>
+            </div>
+            <div class="ui attached segment">
+                <div class="ui labeled button m-margin-tb-tiny" th:each="type:${types}">
+                    <a href="#" th:href="@{/types/{id}(id=${type.id}) }" class="ui basic button " th:classappend="${type.id==activeTypeId}?'teal'" th:text="${type.name}">思考与感悟</a>
+                    <div class="ui basic  left pointing label"  th:classappend="${type.id==activeTypeId}?'teal'"th:text="${#arrays.length(type.blogs)}">24</div>
+                </div>
+            <div class="ui top attached teal segment ">
+                <div class="ui padded vertical segment m-padded-tb-large" th:each="blog:${page.content}">
+                    <div class="ui middle aligned mobile reversed stackable grid">
+                        <div class="eleven wide column">
+                            <h3 class="ui header"> <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="${blog.title}">青春美文</a></h3>
+                            <p class="m-text" th:text="|${blog.description}.....|"> 也许有些时候，你特别想找人聊一聊，但是到最后，你会发现有些事是不能告诉别人的，有些事是不必告诉别人的，有些事是根本无法用言语告诉别人的，有些事是即使告诉别人，别人也理解不了的，所以你要学着长大，学着把满腹委屈埋在心里，然后做个波澜不惊的人，或许这就是孤独</p>
+                            <div class="ui grid">
+                                <div class=" eleven wide column">
+                                    <div class="ui horizontal link list">
+                                        <div class="item">
+                                            <img th:src="@{/images/头像.jpg}" alt="" class="ui avatar image">
+                                            <div class="content"> <a th:href="@{/about}" class="header">王瑞文</a></div>
+                                        </div>
+                                        <div class="item">
+                                            <i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2019-1-15</span>
+                                        </div>
+                                        <div class="item">
+                                            <i class="eye icon"></i><span th:text="${blog.views}">2342</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="right aligned five wide column">
+                                    <a  href="#" class="ui teal basic label m-padded-mini" th:text="${blog.type.name}">认知升级</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="five wide column">
+                            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+                                <img th:src="@{${blog.fistPicture} }" alt="" class=" ui rounded image">
+                            </a>
+                        </div>
+                    </div>
+                    <!--分页-->
+                    <div class="ui bottom attached segment"th:if="${page.totalPages>1}">
+                        <div class="ui middle aligned two column grid">
+                            <div class="column">
+                                <a th:href="@{/(page=${page.number}-1)}" th:unless="${page.first}" class="ui mini teal basic button">上一页</a>
+                            </div>
+                            <div class="right aligned column">
+                                <a th:href="@{/(page=${page.number}+1)}" th:unless="${page.last}" class="ui mini teal basic button">下一页</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="ui bottom attached segment"th:if="${page.totalPages>1}">
+                    <div class="ui middle aligned two column grid">
+                        <div class="column">
+                            <a th:href="@{/(page=${page.number}-1)}" th:unless="${page.first}" class="ui mini teal basic button">上一页</a>
+                        </div>
+                        <div class="right aligned column">
+                            <a th:href="@{/(page=${page.number}+1)}" th:unless="${page.last}" class="ui mini teal basic button">下一页</a>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+    <!--底部-->
+    <footer class="ui inverted vertical segment m-padded-tb-massive">
+        <div class="ui center aligned container">
+            <div class="ui inverted divided stackable grid">
+                <div class="three wide column">
+
+                    <img th:src="@{/images/Wechat.jpg} " class ="ui rounded image" alt="" style=" width: 100px">
+                </div>
+                <div class="four wide column">
+                    <div class="ui inverted link list">
+                        <h4 class="ui inverted header"> 最近更新</h4>
+                        <p class="item">SpringBoot</p>
+                        <p class="item">JAVA</p>
+                        <p class="item">MarkDown使用语法</p>
+                    </div>
+                </div>
+                <div class="four wide column">
+                    <div class="ui inverted link list">
+                        <h4 class="ui inverted header"> 联系我</h4>
+                        <a th:href="@{/about}" class="item ">Email：1571187725@qq.com</a>
+                        <a th:href="@{/about}" class="item">QQ:1571187725</a>
+                    </div>
+                </div>
+                <div class="five wide column">
+                    <div class="ui inverted link list">
+                        <h4 class="ui inverted header">Blog </h4>
+                        <p class="m-opacity-min m-text-thin m-text-spaced m-opacity-min"> 这是我的个人博客、会分享关于变成、写作、生活等相关内容。希望能给迷茫的陷入生活困境不知所措的人带来一些帮助！</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ui inverted section  divider"></div>
+            <p class="m-text-thin m-text-spaced m-opacity-min">Copyright 2019 - 2020 Ruiwen Designed by Ruiwen</p>
+
+            </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script> <!--采用CDN的方式引用css、js资源-->
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.2.4/dist/semantic.min.js"></script>
+</body>
+</html>

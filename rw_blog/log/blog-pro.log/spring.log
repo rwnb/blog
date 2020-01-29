@@ -1,0 +1,2 @@
+2020-01-17 13:22:39.294  WARN 9844 --- [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[rwnb.rw_blog]' package. Please check your configuration.
+2020-01-17 13:22:39.902  WARN 9844 --- [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)

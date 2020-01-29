@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"><!--设置页面缩放-->
+    <title>博客发布</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css"th:href="@{/lib/editormd/css/editormd.min.css}">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+</head>
+<body>
+    <!--导航-->
+    <nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu">
+                <h2 class="ui teal header item">后台管理</h2>
+                <a th:href="@{/admin/admin}" class="item "><i class=" home icon"></i>博客</a>
+                <a th:href="@{/admin/types}" class="item "><i class="idea icon"></i>分类</a>
+                <a  th:href="@{/admin/tags}" class="active item "><i class="tags icon"></i>标签</a>
+                <div class="right menu">
+                    <div class="ui dropdown item">
+                        <div class="text">
+                            <img class="ui avatar image" th:src="@{/images/头像.jpg}">
+                            王瑞文
+                        </div>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <a th:href="@{/admin/logout}" class="item">注销</a>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="ui attached pointing menu">
+        <div class="ui container">
+            <a th:href="@{/admin/input}"class="teal active item">添加</a>
+            <a th:href="@{/admin/types}" class="  item">列表</a>
+        </div>
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <!--中间内容-->
+    <div class="m-container-small m-padded-tb-big">
+       <div class="ui container">
+           <form class="ui form" method="post" action="#" th:action="@{/admin/postTags}">
+               <div class="required field" >
+                   <div class="ui left labeled input">
+                   <!--                   compact适应文本-->
+                   <div class="ui  selection compact teal basic dropdown label">
+                       <input type="hidden" value="原创">
+                       <i class="icon"></i>
+                       <div class="text"> 名称</div>
+                   </div>
+                       <input type="text" name="name" placeholder="标签名称">
+                   </div>
+               </div>
+
+               <div class="ui error message">
+
+               </div>
+               <div class="ui right aligned container">
+                   <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
+                   <button class="ui teal submit button">提交</button>
+               </div>
+           </form>
+       </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+    <!--底部-->
+    <footer class="ui inverted vertical segment m-padded-tb-massive">
+        <div class="ui center aligned container">
+            <div class="ui inverted divided stackable grid">
+                <div class="three wide column">
+
+                    <img th:src="@{/images/Wechat.jpg} "class ="ui rounded image" alt="" style=" width: 100px">
+                </div>
+                <div class="four wide column">
+                    <div class="ui inverted link list">
+                        <h4 class="ui inverted header"> 最新博客</h4>
+                        <a href="#" class="item">大学生涯</a>
+                        <a href="#" class="item">人生之路</a>
+                        <a href="#" class="item">崽崽</a>
+                    </div>
+                </div>
+                <div class="four wide column">
+                    <div class="ui inverted link list">
+                        <h4 class="ui inverted header"> 联系我</h4>
+                        <a href="#" class="item ">Email：1571187725@qq.com</a>
+                        <a href="#" class="item">QQ:1571187725</a>
+                    </div>
+                </div>
+                <div class="five wide column">
+                    <div class="ui inverted link list">
+                        <h4 class="ui inverted header">Blog </h4>
+                        <p class="m-opacity-min m-text-thin m-text-spaced m-opacity-min"> 这是我的个人博客、会分享关于变成、写作、生活等相关内容。希望能给迷茫的陷入生活困境不知所措的人带来一些帮助！</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ui inverted section  divider"></div>
+            <p class="m-text-thin m-text-spaced m-opacity-min">Copyright 2019 - 2020 Ruiwen Designed by Ruiwen</p>
+
+            </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script> <!--采用CDN的方式引用css、js资源-->
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.2.4/dist/semantic.min.js"></script>
+    <script src="../../static/lib/editormd/editormd.min.js"></script>
+<script>
+    $('.ui.dropdown').dropdown({
+        on:'hover'
+    });
+    $('.ui.form').form({
+        fields:{
+            name:{
+                identifier:'name',
+                rules:[{
+                    type:'empty',
+                    prompt:'请输入标签分类'
+                }]
+            }
+        }
+    });
+
+
+</script>
+</body>
+</html>
